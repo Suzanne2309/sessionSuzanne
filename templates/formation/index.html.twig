@@ -6,10 +6,12 @@
 
 <div class="wrapper">
     <h1>Liste des formations</h1>
-
+    <div class="list">
     {% for formation in formations %}
         {{ formation }} <br>
     {% endfor %}
+    </div>
 
+    <a href=" {{ path('add_formation') }}">Ajouter Formations</a>
 </div>
 {% endblock %}

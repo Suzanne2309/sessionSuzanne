@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification aux Formations{% endblock %}
+
+{% block body %}
+    {# {% if edit %} #}
+        {# <h1>Editer une formation</h1>
+    {% else %} #}
+        <h1>Ajouter une formation</h1>
+    {# {% endif %} #}
+
+    {{ form_start(formAddFormation) }}
+    {# {{ form_widget(formAddEmploye) }} #}
+
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(formAddFormation) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            {{ form_row(formAddFormation.title) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddFormation.description) }}
+        </div>
+    </div>
+            {{ form_row(formAddFormation.valider) }}
+
+    {{ form_end(formAddFormation) }}
+
+{% endblock %}
