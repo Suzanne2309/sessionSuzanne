@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StagiaireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,17 @@ class Stagiaire
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+
+    /**
+     * @var Collection<int, Session>
+     */
+    #[ORM\ManyToMany(targetEntity: Session::class, mappedBy: 'stagiaires')]
+    private Collection $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +148,33 @@ class Stagiaire
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+            $session->addStagiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): static
+    {
+        if ($this->sessions->removeElement($session)) {
+            $session->removeStagiaire($this);
+        }
 
         return $this;
     }
