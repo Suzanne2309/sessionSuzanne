@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProgrammeController!{% endblock %}
+{% block title %}Liste des programmes{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Liste des programmes</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/laragon/www/sessionSuzanne/src/Controller/ProgrammeController.php</code></li>
-        <li>Your template at <code>C:/laragon/www/sessionSuzanne/templates/programme/index.html.twig</code></li>
-    </ul>
+    <div class="list">
+    {% for programme in programmes %}
+        {{ programme }} <br>
+        <p>{{ programme.module }} qui dure {{ programme.duration }} Jours</p>         
+    {% endfor %}
+    </div>
 </div>
+{# <a href="{{ path('delete_programme', {'id':programme.id}) }}">Supprimer</a> #}
 {% endblock %}
