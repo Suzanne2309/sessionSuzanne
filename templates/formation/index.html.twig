@@ -8,7 +8,7 @@
     <h1>Liste des formations</h1>
     <div class="list">
     {% for formation in formations %}
-        {{ formation }} <br>
+        <a href="{{ path('show_formation', {'id':formation.id}) }}">{{ formation }}</a> <a href="{{ path('delete_formation', {'id':formation.id}) }}">Supprimer</a> <br>        
     {% endfor %}
     </div>
 
