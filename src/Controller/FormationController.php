@@ -13,10 +13,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class FormationController extends AbstractController
 {
+    //Fonction pour lister les formations
     #[Route('/formation', name: 'app_formation')]
     public function index(FormationRepository $formationRepository): Response
     {
-
+        //La variable formations est un tableau qui va se remplir avec les données du tableau formation en base de données grâce au repository Formation
         $formations = $formationRepository->findBy([], ['title' => 'ASC']);
 
         return $this->render('formation/index.html.twig', [
@@ -24,6 +25,7 @@ final class FormationController extends AbstractController
         ]);
     }
 
+    //La fonction va permettre de créer un formulaire et si c'est pour ajouter une formation, alors le formulaire sera vide, mais si c'est pour modifier un module existant le formulaire sera pré-remplit
     #[Route('/formation/add', name: 'add_formation')]
     #[Route('/formation/{id}/edit', name: 'edit_formation')]
     public function add_editFormation(Formation $formation = null, Request $request, EntityManagerInterface $entityManager): Response
@@ -53,6 +55,7 @@ final class FormationController extends AbstractController
         ]);
     }
 
+    //Fonction de suppression d'une formation
     #[Route('/formation/{id}/delete', name: 'delete_formation')]
     public function deleteFormation(Formation $formation, EntityManagerInterface $entityManager) {
         $entityManager->remove($formation);
@@ -61,7 +64,7 @@ final class FormationController extends AbstractController
         return $this->redirectToRoute('app_formation');
     }
 
-
+    //Fonction qui va afficher le détail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
     public function showFormation(Formation $formation): Response {
         return $this->render('formation/show.html.twig', [
