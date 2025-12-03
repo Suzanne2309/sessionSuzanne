@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Liste des catégories</h1>
+
+    
+    <div class="listCategory">
+        {% for category in categories %}
+            <a href="{{ path('showModule_category', {'id':category.id}) }}">{{ category }}</a> <a href="{{ path('edit_category', {'id':category.id}) }}">Editer</a> <a href="{{ path('delete_category', {'id':category.id}) }}">Supprimer</a><br>
+        {% endfor %}
+    </div>
+
+
+    <p>Pour créer une nouvelle catégorie, cliquez ci-dessous !</p>
+    <a href=" {{ path('add_category') }}">Ajouter</a>
+{% endblock %}

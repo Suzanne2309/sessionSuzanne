@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'une catégorie'{% endblock %}
+
+{% block body %}
+    {# {% if edit %} #}
+        {# <h1>Editer un module</h1>
+    {% else %} #}
+        <h1>Ajouter une catégorie</h1>
+    {# {% endif %} #}
+
+    {{ form_start(formAddCategory) }}
+    {# {{ form_widget(formAddEmploye) }} #}
+
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(formAddCategory) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            {{ form_row(formAddCategory.categoryName) }}
+        </div>
+    </div>
+            {{ form_row(formAddCategory.valider) }}
+
+    {{ form_end(formAddCategory) }}
+
+{% endblock %}

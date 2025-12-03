@@ -11,7 +11,14 @@
     <body>
 
         <nav>
-            
+            <ul>
+                <li>
+                    <a href="{{ path('app_formation') }}">Les formations</a>
+                </li>
+                <li>
+                    <a href="{{ path('list_category') }}">Les catégories</a>
+                </li>
+            </ul>
         </nav>
         {% block body %}{% endblock %}
 

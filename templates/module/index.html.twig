@@ -5,14 +5,13 @@
 {% block body %}
 
 <div class="example-wrapper">
-    <h1>Liste des modules</h1>
+    <h1>Liste des modules par catégorie</h1>
 
-    
-    <div class="listModule">
+        <div class="listModuleByCategory">
         {% for module in modules %}
             <a href="{{ path('show_module', {'id':module.id}) }}">{{ module }}</a> <a href="{{ path('delete_module', {'id':module.id}) }}">Supprimer</a><br>
         {% endfor %}
-    </div>
+        </div>
 
     <p>Pour créer un nouveau module, cliquez ci-dessous !</p>
     <a href=" {{ path('add_module') }}">Ajouter</a>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Form\FormationType;
+use App\Repository\SessionRepository;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,6 +70,18 @@ final class FormationController extends AbstractController
     public function showFormation(Formation $formation): Response {
         return $this->render('formation/show.html.twig', [
             'formation' => $formation,
+        ]);
+    }
+
+    #[Route('/session/{id}/showSessionByFormation', name: 'showSession_formation')]
+    public function showSessionByFormation($id, Formation $formation, Session $session, SessionRepository $SessionRepository, EntityManagerInterface $entityManager): Response
+    {
+        $sessions = $sessionRepository->findByCategory($id);
+
+
+        return $this->render('formation/show.html.twig', [
+            'sessions' => $sessions,
+            'formation' => $formation->getId(),
         ]);
     }
 }

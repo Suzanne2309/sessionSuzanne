@@ -77,6 +77,6 @@ class Category
     }
 
     public function __toString() {
-        return $this->getCategoryName;
+        return $this->getCategoryName();
     }
 }

@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Module;
+use App\Entity\Category;
 use App\Form\ModuleType;
+use App\Form\CategoryType;
 use App\Repository\ModuleRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +26,6 @@ final class ModuleController extends AbstractController
             'modules' => $modules,
         ]);
     }
-
-    // #[Route('/module', name: 'app_category')]
-    // public function listCategory(): Response {
-
-    //     return $this->render('module/index.html.twig', [
-    //         'modules' => $modules,
-    //     ]);
-    // }
 
     ////La fonction va permettre de créer un formulaire et si c'est pour ajouter une formation, alors le formulaire sera vide, mais si c'est pour modifier un module existant le formulaire sera pré-remplit
     #[Route('/module/add', name: 'add_module')]
@@ -89,4 +84,60 @@ final class ModuleController extends AbstractController
     }
 
 
+    //Fonction pour afficher la liste des catégories
+    #[Route('/category', name: 'list_category')]
+    public function listCategory(CategoryRepository $categoryRepository): Response
+    {
+        $categories = $categoryRepository->findBy([], ['categoryName' => 'ASC']);
+
+        return $this->render('module/listCategory.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    #[Route('/module/{id}/showModuleByCategory', name: 'showModule_category')]
+    public function showModuleByCategory($id, Category $category, Module $module, ModuleRepository $moduleRepository, EntityManagerInterface $entityManager): Response
+    {
+        $modules = $moduleRepository->findByCategory($id);
+
+
+        return $this->render('module/index.html.twig', [
+            'modules' => $modules,
+            'category' => $category->getId(),
+        ]);
+    }
+
+    #[Route('/category/add', name: 'add_category')]
+    #[Route('/category/{id}/edit', name: 'edit_category')]
+    public function add_editCategory(Category $category = null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if(!$category) {
+            $category = New Category();
+        }
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+            $entityManager->persist($category); 
+            $entityManager->flush();
+
+            return $this->redirectToRoute('list_category');
+        }
+
+        return $this->render('module/addCategory.html.twig', [
+            'formAddCategory' => $form->createView(),
+            'category' => $category->getId(),
+        ]);
+    }
+
+    #[Route('/category/{id}/delete', name: 'delete_category')]
+    public function deleteCategory(Category $category, EntityManagerInterface $entityManager) 
+    {
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('list_category');
+    }
 }
