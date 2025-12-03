@@ -168,4 +168,8 @@ class Session
 
         return $this;
     }
+
+    public function __toString() {
+        return "Session du " . $this->getStartDate() . " au " . $this->getEndDate() . "";
+    }
 }

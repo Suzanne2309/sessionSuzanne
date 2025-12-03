@@ -67,14 +67,14 @@ final class FormationController extends AbstractController
 
     //Fonction qui va afficher le détail d'une formation
     #[Route('/formation/{id}', name: 'show_formation')]
-    public function showFormation(Formation $formation): Response {
+    public function showFormation($id, Formation $formation): Response {
         return $this->render('formation/show.html.twig', [
             'formation' => $formation,
         ]);
     }
 
     #[Route('/session/{id}/showSessionByFormation', name: 'showSession_formation')]
-    public function showSessionByFormation($id, Formation $formation, Session $session, SessionRepository $SessionRepository, EntityManagerInterface $entityManager): Response
+    public function showSessionByFormation($id, Formation $formation, Session $session, SessionRepository $sessionRepository, EntityManagerInterface $entityManager): Response
     {
         $sessions = $sessionRepository->findByCategory($id);
 
