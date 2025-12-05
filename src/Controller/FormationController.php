@@ -105,4 +105,14 @@ final class FormationController extends AbstractController
             'edit' => $session->getId(),
         ]);
     }
+
+    #[Route('/session/{id}/delete', name: 'delete_session')]
+    public function deleteSession(Session $session, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($session);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_formation');
+    }
 }
