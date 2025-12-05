@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la session{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+    <h1>Détail de la session</h1>
+    <article class="info-formation">
+
+        <h2>Session du {{ session }}</h2>
+        
+        <div class="listModules">
+        {% for module in modules %}
+            <a href="">{{ module }}</a> <br>
+        {% endfor %}
+        </div>
+    
+    </article>
+{# <a href="{{ path('edit_session', {'id':session.id}) }}">Editer</a> <a href="{{ path('delete_session', {'id':session.id}) }}">Supprimer</a> #}
+</div>
+{% endblock %}

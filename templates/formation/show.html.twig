@@ -23,7 +23,7 @@
 
     <div class="listSession">
     {% for session in sessions %}
-        <a href="">{{ session }}</a> <a href="{{ path('edit_session', {'id':session.id}) }}">Editer</a> <a href="{{ path('delete_session', {'id':session.id}) }}">Supprimer</a><br>
+        <a href="{{ path('show_session', {'id':session.id}) }}">{{ session }}</a> <a href="{{ path('edit_session', {'id':session.id}) }}">Editer</a> <a href="{{ path('delete_session', {'id':session.id}) }}">Supprimer</a><br>
     {% endfor %}
     </div>
 

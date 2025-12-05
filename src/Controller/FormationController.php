@@ -115,4 +115,18 @@ final class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation');
     }
+
+    //Fonction qui va afficher le détail d'une session
+    #[Route('/session/{id}/show', name: 'show_session')]
+    public function showSession(Session $session, Module $module, ModuleRepository $moduleRepository, EntityManagerInterface $entityManager): Response 
+    {
+
+        $modules = $moduleRepository->findBySession($session->getId());
+
+        return $this->render('formation/showSession.html.twig', [
+            'session' => $session,
+            'modules' => $modules,
+        ]);
+    }
+
 }
