@@ -21,8 +21,15 @@
 <div class="containerSession">
     <h2>Liste des sessions</h2>
 
+    <div class="listSession">
     {% for session in sessions %}
-        {{ session }}      
+        <a href="">{{ session }}</a><br>     
     {% endfor %}
+    </div>
+
+    <p>Ajouter une session</p>
+    <a href="{{ path('add_session') }}">Ajouter</a>
+
+
 </div>
 {% endblock %}

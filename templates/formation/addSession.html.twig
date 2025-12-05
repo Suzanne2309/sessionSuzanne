@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification aux Sessions{% endblock %}
+
+{% block body %}
+    {# {% if edit %} #}
+        {# <h1>Editer une formation</h1>
+    {% else %} #}
+        <h1>Ajouter une session</h1>
+    {# {% endif %} #}
+
+    {{ form_start(formAddSession) }}
+    {# {{ form_widget(formAddEmploye) }} #}
+
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(formAddSession) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            {{ form_row(formAddSession.startDate) }}
+            {{ form_row(formAddSession.endDate) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddSession.capacityNumber) }}
+            {{ form_row(formAddSession.reservedPlaces) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddSession.formation) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddSession.stagiaires) }}
+        </div>
+    </div>
+            {{ form_row(formAddSession.valider) }}
+
+    {{ form_end(formAddSession) }}
+
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\Formation;
+use App\Form\SessionType;
 use App\Form\FormationType;
 use App\Repository\SessionRepository;
 use App\Repository\FormationRepository;
@@ -78,15 +79,28 @@ final class FormationController extends AbstractController
         ]);
     }
 
-    // #[Route('/session/{id}/showSessionByFormation', name: 'showSession_formation')]
-    // public function showSessionByFormation($id, Formation $formation, Session $session, SessionRepository $sessionRepository, EntityManagerInterface $entityManager): Response
-    // {
-    //     $sessions = $sessionRepository->findByCategory($id);
+    #[Route('/session/add', name: 'add_session')]
+    public function addSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if(! $session) {
+            $session = new Session();
+        }
 
+       $form = $this->createForm(SessionType::class, $session);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $session = $form->getData();
 
-    //     return $this->render('formation/show.html.twig', [
-    //         'sessions' => $sessions,
-    //         'formation' => $formation->getId(),
-    //     ]);
-    // }
+            $entityManager->persist($session);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_formation');
+        }
+
+        return $this->render('formation/addSession.html.twig', [
+            'formAddSession' => $form->createView(),
+        ]);
+    }
 }

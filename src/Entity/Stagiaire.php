@@ -85,6 +85,10 @@ class Stagiaire
         return $this->birthday;
     }
 
+    public function getBirthdayFr(): ?string {
+        return $this->birthday->format("d-m-Y");
+    }
+
     public function setBirthday(\DateTime $birthday): static
     {
         $this->birthday = $birthday;
@@ -177,5 +181,9 @@ class Stagiaire
         }
 
         return $this;
+    }
+
+    public function __toString() {
+        return "" . $this->getFirstName() . " " . $this->getLastName() . " (" . $this->getBirthdayFr() . ")";
     }
 }

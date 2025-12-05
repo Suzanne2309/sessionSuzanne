@@ -3,14 +3,13 @@
 {% block title %}Modification aux Formations{% endblock %}
 
 {% block body %}
-    {# {% if edit %} #}
-        {# <h1>Editer une formation</h1>
-    {% else %} #}
+    {% if edit %}
+        <h1>Editer une formation</h1>
+    {% else %}
         <h1>Ajouter une formation</h1>
-    {# {% endif %} #}
+    {% endif %}
 
     {{ form_start(formAddFormation) }}
-    {# {{ form_widget(formAddEmploye) }} #}
 
     <div class="my-custom-class-for-errors">
         {{ form_errors(formAddFormation) }}
