@@ -72,6 +72,10 @@ class Session
         return $this->startDate;
     }
 
+    public function getStartDateFr(): ?string {
+        return $this->startDate->format("d-m-Y");
+    }
+
     public function setStartDate(\DateTime $startDate): static
     {
         $this->startDate = $startDate;
@@ -82,6 +86,10 @@ class Session
     public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
+    }
+
+    public function getEndDateFr(): ?string {
+        return $this->endDate->format("d-m-Y");
     }
 
     public function setEndDate(\DateTime $endDate): static
@@ -170,6 +178,6 @@ class Session
     }
 
     public function __toString() {
-        return "Session du " . $this->getStartDate() . " au " . $this->getEndDate() . "";
+        return "Session du " . $this->getStartDateFr() . " au " . $this->getEndDateFr() . "";
     }
 }
