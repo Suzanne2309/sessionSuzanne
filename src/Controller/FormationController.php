@@ -80,7 +80,8 @@ final class FormationController extends AbstractController
     }
 
     #[Route('/session/add', name: 'add_session')]
-    public function addSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/session/{id}/edit', name: 'edit_session')]
+    public function add_editSession(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response
     {
         if(! $session) {
             $session = new Session();
@@ -101,6 +102,7 @@ final class FormationController extends AbstractController
 
         return $this->render('formation/addSession.html.twig', [
             'formAddSession' => $form->createView(),
+            'edit' => $session->getId(),
         ]);
     }
 }
