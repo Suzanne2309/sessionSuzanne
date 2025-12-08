@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification aux Stagiaires{% endblock %}
+
+{% block body %}
+    {# {% if edit %} #}
+        {# <h1>Editer une formation</h1>
+    {% else %} #}
+        <h1>Ajouter un stagiaire</h1>
+    {# {% endif %} #}
+
+    {{ form_start(formAddStagiaire) }}
+    {# {{ form_widget(formAddEmploye) }} #}
+
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(formAddStagiaire) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.firstName) }}
+            {{ form_row(formAddStagiaire.lastName) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.birthday) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.sexe) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.city) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.email) }}
+            {{ form_row(formAddStagiaire.phoneNumber) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddStagiaire.picture) }}
+        </div>
+        <div class="col-sm">
+            {{ form_row(formAddSession.sessions) }}
+        </div>
+    </div>
+            {{ form_row(formAddStagiaire.valider) }}
+
+    {{ form_end(formAddStagiaire) }}
+
+{% endblock %}
