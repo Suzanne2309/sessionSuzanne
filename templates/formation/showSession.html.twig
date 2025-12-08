@@ -8,15 +8,27 @@
     <h1>Détail de la session</h1>
     <article class="info-formation">
 
-        <h2>Session du {{ session }}</h2>
+        <h2>{{ session }}</h2>
         
-        <div class="listModules">
-        {% for module in modules %}
-            <a href="">{{ module }}</a> <br>
-        {% endfor %}
-        </div>
-    
+        <p>Vous pouvez retrouver ci-dessous le programme de la session, donc la liste des modules et leurs durée en jours. Ainsi que la liste des stagiaires. </p>
     </article>
-{# <a href="{{ path('edit_session', {'id':session.id}) }}">Editer</a> <a href="{{ path('delete_session', {'id':session.id}) }}">Supprimer</a> #}
+
+    <div class="listModule">
+    <h3>Liste des modules de la session</h3>
+        
+    {% for programme in programmes %}
+        <p><a href="{{ path('show_module', {'id':programme.module.id}) }}">{{ programme }}</a> qui durera {{programme.duration}} Jours</p><br>
+    {% endfor %}
+    </div>
+
+
+    <div class="listStagiaire">
+    <h3>Liste des stagiaires de la session</h3>
+
+    {% for stagiaire in stagiaires %}
+        <p><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a>, née le {{ stagiaire.birthdayFr }}</p><br>
+    {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

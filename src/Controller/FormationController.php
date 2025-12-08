@@ -4,10 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\Formation;
+use App\Entity\Programme;
+use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Form\FormationType;
 use App\Repository\SessionRepository;
 use App\Repository\FormationRepository;
+use App\Repository\ProgrammeRepository;
+use App\Repository\StagiaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,7 +91,7 @@ final class FormationController extends AbstractController
             $session = new Session();
         }
 
-       $form = $this->createForm(SessionType::class, $session);
+        $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
@@ -118,15 +122,41 @@ final class FormationController extends AbstractController
 
     //Fonction qui va afficher le détail d'une session
     #[Route('/session/{id}/show', name: 'show_session')]
-    public function showSession(Session $session, Module $module, ModuleRepository $moduleRepository, EntityManagerInterface $entityManager): Response 
+    public function showSession(Session $session, Programme $programme, ProgrammeRepository $programmeRepository, EntityManagerInterface $entityManager): Response 
     {
+        $programmes = $programmeRepository->findBySession($session->getId());
 
-        $modules = $moduleRepository->findBySession($session->getId());
+        $stagiaires = $session->getStagiaires();
 
         return $this->render('formation/showSession.html.twig', [
             'session' => $session,
-            'modules' => $modules,
+            'programmes' => $programmes,
+            'stagiaires' => $stagiaires,
         ]);
     }
 
+    #[Route('/stagiaire', name: 'app_stagiaire')]
+    public function appStagiaire(StagiaireRepository $stagiaireRepository) : Response
+    {
+        $stagiaires = $stagiaireRepository->findBy([], ['lastName' => 'ASC']);
+
+        return $this->render('formation/listStagiaire.html.twig', [
+            'stagiaires' => $stagiaires,
+        ]);
+    }
+
+    #[Route('/stagiaire/add', name: 'add_stagiaire')]
+    public function addStagiaire(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager) :Response
+    {
+
+    }
+
+    #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
+    public function showStagiaire(Stagiaire $stagiaire, StagiaireRepository $stagiaireRepository, EntityManagerInterface $entityManager) : Response
+    {
+        
+        return $this->render('formation/showStagiaire.html.twig', [
+            'stagiaire' => $stagiaire,
+        ]);
+    }
 }

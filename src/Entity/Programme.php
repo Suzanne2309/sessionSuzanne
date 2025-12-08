@@ -64,6 +64,6 @@ class Programme
     }
 
     public function __toString() {
-        return "La session du " . $this->getSession(). " est constitué du module : " ;
+        return $this->getModule();
     }
 }

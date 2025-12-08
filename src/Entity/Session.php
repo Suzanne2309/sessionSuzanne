@@ -178,6 +178,6 @@ class Session
     }
 
     public function __toString() {
-        return "Session du " . $this->getStartDateFr() . " au " . $this->getEndDateFr() . "";
+        return "" . $this->getStartDateFr() . " au " . $this->getEndDateFr() . "";
     }
 }

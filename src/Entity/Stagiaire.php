@@ -184,6 +184,6 @@ class Stagiaire
     }
 
     public function __toString() {
-        return "" . $this->getFirstName() . " " . $this->getLastName() . " (" . $this->getBirthdayFr() . ")";
+        return "" . $this->getFirstName() . " " . $this->getLastName() . "";
     }
 }
