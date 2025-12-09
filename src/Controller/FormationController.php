@@ -171,6 +171,15 @@ final class FormationController extends AbstractController
         ]);
     }
 
+    #[Route('/stagiaire/{id}/delete', name: 'delete_stagiaire')]
+    public function deleteStagiaire(Stagiaire $stagiaire, EntityManagerInterface $entityManager) 
+    {
+            $entityManager->remove($stagiaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_stagiaire');
+    }
+
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
     public function showStagiaire(Stagiaire $stagiaire, StagiaireRepository $stagiaireRepository, EntityManagerInterface $entityManager) : Response
     {

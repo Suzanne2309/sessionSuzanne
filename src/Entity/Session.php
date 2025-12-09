@@ -35,7 +35,7 @@ class Session
     /**
      * @var Collection<int, Stagiaire>
      */
-    #[ORM\ManyToMany(targetEntity: Stagiaire::class, inversedBy: 'sessions')]
+    #[ORM\ManyToMany(targetEntity: Stagiaire::class, inversedBy: 'sessions', orphanRemoval: true, cascade:['persist'])]
     private Collection $stagiaires;
 
     /**
