@@ -8,6 +8,7 @@ use App\Entity\Programme;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
 use App\Form\FormationType;
+use App\Form\StagiaireType;
 use App\Repository\SessionRepository;
 use App\Repository\FormationRepository;
 use App\Repository\ProgrammeRepository;
@@ -149,6 +150,23 @@ final class FormationController extends AbstractController
     public function addStagiaire(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager) :Response
     {
 
+        if(! $stagiaire) {
+            $stagiaire = new Stagiaire;
+        }
+
+        $form = $this->createForm(StagiaireType::class, $stagiaire);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $stagiaire = $form->getData();
+            $entityManager->persist($stagiaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_stagiaire');
+        }
+
+        return $this->render('formation/addStagiaire.html.twig', [
+            'formAddStagiaire' => $form->createView(),
+        ]);
     }
 
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]

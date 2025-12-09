@@ -11,8 +11,8 @@
         <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a><br>        
     {% endfor %}
     </div>
-{# 
-    <a href="{{ path('delete_formation', {'id':formation.id}) }}">Supprimer</a> 
-    <a href=" {{ path('add_formation') }}">Ajouter Formations</a> #}
+
+    {# <a href="{{ path('delete_formation', {'id':formation.id}) }}">Supprimer</a>  #}
+    <a href=" {{ path('add_stagiaire') }}">Ajouter stagiaire</a>
 </div>
 {% endblock %}
