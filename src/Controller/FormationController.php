@@ -147,7 +147,8 @@ final class FormationController extends AbstractController
     }
 
     #[Route('/stagiaire/add', name: 'add_stagiaire')]
-    public function addStagiaire(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager) :Response
+    #[Route('/stagiaire/{id}/edit', name: 'edit_stagiaire')]
+    public function add_editStagiaire(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager) :Response
     {
 
         if(! $stagiaire) {
@@ -166,6 +167,7 @@ final class FormationController extends AbstractController
 
         return $this->render('formation/addStagiaire.html.twig', [
             'formAddStagiaire' => $form->createView(),
+            'edit' => $stagiaire->getId(),
         ]);
     }
 

@@ -8,7 +8,7 @@
     <h1>Liste des stagiaires</h1>
     <div class="listStagiaire">
     {% for stagiaire in stagiaires %}
-        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a><br>        
+        <a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire }}</a> <a href="{{ path('edit_stagiaire', {'id':stagiaire.id}) }}">Editer</a><br>        
     {% endfor %}
     </div>
 
